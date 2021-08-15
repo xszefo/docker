@@ -1,11 +1,18 @@
 #!/usr/bin/env python
 
 import pika
+import time
 import random
 
 def send_message(message):
-    connection = pika.BlockingConnection(pika.ConnectionParameters('rabbit'))
-    channel = connection.channel()
+    for i in range(0,5):
+        try:
+            connection = pika.BlockingConnection(pika.ConnectionParameters('rabbit'))
+            channel = connection.channel()
+        except Exception as e:
+            print(e)
+            print('Sender is still waiting for the rabbit...')
+            time.sleep(5)
 
     channel.queue_declare(queue='my-first-queue')
 

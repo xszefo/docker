@@ -9,7 +9,21 @@ services:
                 image: python:3.8-alpine
                 stdin_open: true
                 tty: true
+                command: sh /code/sender_bootscript.sh
                 volumes:
                         - .:/code  
                 depends_on:
                         - rabbit
+                environment: 
+                        - PYTHONUNBUFFERED=1
+        'python-receiver':
+                image: python:3.8-alpine
+                command: sh /code/receiver_bootscript.sh
+                stdin_open: true
+                tty: true
+                volumes:
+                        - .:/code  
+                depends_on:
+                        - rabbit
+                environment: 
+                        - PYTHONUNBUFFERED=1
