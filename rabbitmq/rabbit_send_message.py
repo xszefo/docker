@@ -12,6 +12,8 @@ def send_message(message):
     channel.basic_publish(exchange='', routing_key='my-first-queue', body=message)
     print(f'Sent message: {message}')
 
+    connection.close()
+
 def main():
     message = ''.join([str(random.randint(0,5)) for i in range(0,9)])
     send_message(message)
