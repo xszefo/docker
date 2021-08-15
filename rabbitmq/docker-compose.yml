@@ -1,0 +1,15 @@
+version: '3'
+services:
+        'rabbit':
+                image: rabbitmq:3
+                ports:
+                        - 5672:5672
+                hostname: my-rabbit
+        'python-sender':
+                image: python:3.8-alpine
+                stdin_open: true
+                tty: true
+                volumes:
+                        - .:/code  
+                depends_on:
+                        - rabbit
